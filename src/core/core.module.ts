@@ -1,14 +1,18 @@
 import { Global, Module } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtModule, JwtModuleOptions } from '@nestjs/jwt';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import databaseConfig from '@shared/config/database.config';
+import jwtConfig from '@shared/config/jwt.config';
+import serverConfig from '@shared/config/server.config';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
 import { JwtStrategy } from './auth/strategies/jwt.strategy';
 
 @Global()
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true, load: [databaseConfig, serverConfig, jwtConfig] }),
     JwtModule.registerAsync({
       useFactory: (configService: ConfigService) => configService.get<JwtModuleOptions>('jwt'),
       inject: [ConfigService],
@@ -19,5 +23,6 @@ import { JwtStrategy } from './auth/strategies/jwt.strategy';
     }),
   ],
   providers: [{ provide: APP_GUARD, useClass: JwtAuthGuard }, JwtStrategy],
+  exports: [JwtModule],
 })
 export class CoreModule {}

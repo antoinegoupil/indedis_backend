@@ -13,5 +13,6 @@ export default registerAs(
       database: process.env._DB_DATABASE,
       entities: [process.env._DB_ENTITIES],
       logging: process.env._DB_LOGGING || false,
+      synchronize: process.env._DB_SYNCHRONIZE === 'true',
     } as TypeOrmModuleOptions),
 );
