@@ -1,6 +1,8 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Address } from './address.entity';
 import { Command } from './command.entity';
+import { UserStatus } from './user-status.entity';
+import { UserType } from './user-type.entity';
 
 @Entity()
 export class User {
@@ -18,6 +20,12 @@ export class User {
 
   @Column({ type: 'varchar', nullable: false, length: 100 })
   password: string;
+
+  @ManyToOne(() => UserStatus, (userStatus) => userStatus.users)
+  userStatus: UserStatus;
+
+  @ManyToOne(() => UserType, (userType) => userType.users)
+  userType: UserType;
 
   @OneToMany(() => Command, (command) => command.user)
   commands: Command[];

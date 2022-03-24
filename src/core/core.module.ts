@@ -7,6 +7,7 @@ import databaseConfig from '@shared/config/database.config';
 import jwtConfig from '@shared/config/jwt.config';
 import serverConfig from '@shared/config/server.config';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guard';
+import { RolesGuard } from './auth/guards/roles.guard';
 import { JwtStrategy } from './auth/strategies/jwt.strategy';
 
 @Global()
@@ -22,7 +23,11 @@ import { JwtStrategy } from './auth/strategies/jwt.strategy';
       inject: [ConfigService],
     }),
   ],
-  providers: [{ provide: APP_GUARD, useClass: JwtAuthGuard }, JwtStrategy],
+  providers: [
+    { provide: APP_GUARD, useClass: JwtAuthGuard },
+    { provide: APP_GUARD, useClass: RolesGuard },
+    JwtStrategy,
+  ],
   exports: [JwtModule],
 })
 export class CoreModule {}

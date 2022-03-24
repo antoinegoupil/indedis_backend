@@ -45,7 +45,7 @@ export class AuthService {
     const user = await this.authRepo.login(params.email);
 
     if (user && this.validatePasswordUser(params.password, user.password)) {
-      return this.generateToken(user.id);
+      return this.generateToken(user.id, user.userType.code);
     }
 
     throw new UnauthorizedException(CODE_ERROR.AUTH_FAILLED);
@@ -82,7 +82,7 @@ export class AuthService {
    * @param userId
    * @returns un token jwt
    */
-  generateToken(userId: number): TokenDto {
-    return { token: this.jwtService.sign({ id: userId }) };
+  generateToken(userId: number, role: string): TokenDto {
+    return { token: this.jwtService.sign({ id: userId, role }) };
   }
 }
