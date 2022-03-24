@@ -21,6 +21,19 @@ export class ProductRepository extends Repository<Product> {
       req.andWhere('product.mark = :mark', { mark: productFilter.mark });
     }
 
-    return req.getMany();
+    return await req.getMany();
+  }
+
+  /**
+   * Récupère un id par son id
+   *
+   * @param id
+   * @returns
+   */
+  async findById(id: number) {
+    return await this.createQueryBuilder('product')
+      .select(['product.id', 'product.name', 'product.description', 'product.price'])
+      .where('product.id = :id', { id })
+      .getOne();
   }
 }

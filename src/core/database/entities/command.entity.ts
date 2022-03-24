@@ -14,13 +14,16 @@ export class Command {
   @Column({ type: 'time', nullable: false })
   time: string;
 
+  @Column({ type: 'real', nullable: false })
+  price: number;
+
   @OneToMany(() => CommandProduct, (commandProduct) => commandProduct.command)
   commandProducts: CommandProduct[];
 
   @ManyToOne(() => User, (user) => user.commands, { nullable: true })
   user: User;
 
-  @ManyToOne(() => Address, (address) => address.commands, { nullable: true })
+  @ManyToOne(() => Address, (address) => address.commands, { nullable: false })
   address: Address;
 
   constructor(partial: Partial<Command>) {

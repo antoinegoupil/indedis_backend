@@ -13,6 +13,10 @@ export class ProductService {
    * @returns
    */
   async getProducts(productFilter: ProductFilterDto) {
-    return this.productRepo.findByFilter(productFilter);
+    return await this.productRepo.findByFilter(productFilter);
+  }
+
+  async getById(id: number) {
+    return await this.productRepo.findById(id);
   }
 }
