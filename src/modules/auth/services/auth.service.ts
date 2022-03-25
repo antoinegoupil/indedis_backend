@@ -8,6 +8,7 @@ import * as bcrypt from 'bcrypt';
 import { LoginDto } from '../dto/login.dto';
 import { TokenDto } from '../dto/token.dto';
 import { AuthRepository } from '../repositories/auth.repository';
+import { TYPE_UTILISATEUR, STATUS_UTILISATEUR } from '@shared/constants/database.constant';
 
 @Injectable()
 export class AuthService {
@@ -25,7 +26,7 @@ export class AuthService {
   async register(user: User) {
     try {
       user.password = await this.saltPassword(user.password);
-      await this.userRepo.insert(user);
+      await this.userRepo.insertWithTypeAndStatus(user, TYPE_UTILISATEUR.USER, STATUS_UTILISATEUR.ACTIF);
     } catch (error) {
       if (error.code === CODE_ERROR_MYSQL.DUP_ENTRY) {
         throw new FunctionalException(CODE_ERROR.DUP_EMAIL);

@@ -1,5 +1,8 @@
+import { CommandProduct } from '@core/database/entities/command-product.entity';
 import { Command } from '@core/database/entities/command.entity';
-import { EntityRepository, Repository } from 'typeorm';
+import { Product } from '@core/database/entities/product.entity';
+import { EntityRepository, InsertResult, Repository } from 'typeorm';
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 @EntityRepository(Command)
 export class CommandRepository extends Repository<Command> {
@@ -31,5 +34,25 @@ export class CommandRepository extends Repository<Command> {
 
       .where('command.id = :id', { id })
       .getOne();
+  }
+
+  /**
+   * Ajoute une commande
+   *
+   * @param entity
+   * @returns
+   */
+  override async insert(
+    entity: QueryDeepPartialEntity<Command> | QueryDeepPartialEntity<Command>[],
+  ): Promise<InsertResult> {
+    return await this.createQueryBuilder().insert().into(Command).values(entity).execute();
+  }
+
+  async insertCommandProduct(amount: number, idProduct: number, idCommand: number) {
+    await this.createQueryBuilder()
+      .insert()
+      .into(CommandProduct)
+      .values({ amount, product: new Product({ id: idProduct }), command: new Command({ id: idCommand }) })
+      .execute();
   }
 }

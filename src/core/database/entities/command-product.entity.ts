@@ -8,7 +8,7 @@ export class CommandProduct {
   product: Product;
 
   @ManyToOne(() => Command, (command) => command.commandProducts, { primary: true })
-  command: Product;
+  command: Command;
 
   @Column({ type: 'int', nullable: false })
   amount: number;

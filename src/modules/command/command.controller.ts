@@ -1,6 +1,7 @@
 import { Command } from '@core/database/entities/command.entity';
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { User } from '@shared/decorators/user.decorator';
+import { NewCommandDto } from './dto/new-command.dto';
 import { CommandService } from './services/command.service';
 
 @Controller('commands')
@@ -13,7 +14,12 @@ export class CommandController {
   }
 
   @Get(':id')
-  async getById(@Param('id') id: number) {
+  async getById(@Param('id') id: number): Promise<Command> {
     return await this.commandService.getById(id);
+  }
+
+  @Post()
+  async add(@Body() newCommandDto: NewCommandDto) {
+    await this.commandService.add(newCommandDto);
   }
 }
