@@ -6,9 +6,10 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 import { ProductModule } from './modules/product/product.module';
 import { CommandModule } from './modules/command/command.module';
+import { InitModule } from './modules/init/init.module';
 
 @Module({
-  imports: [CoreModule, AuthModule, UserModule, ProductModule, CommandModule],
+  imports: [CoreModule, AuthModule, UserModule, ProductModule, CommandModule, InitModule],
   controllers: [AppController],
   providers: [AppService],
 })

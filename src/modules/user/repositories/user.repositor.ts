@@ -28,4 +28,19 @@ export class UserRepository extends Repository<User> {
       })
       .execute();
   }
+
+  /**
+   * Récupère un utilisateur selon son id
+   *
+   * @param id
+   * @returns
+   */
+  async getById(id: number) {
+    return await this.createQueryBuilder('user')
+      .select(['user.id', 'user.name', 'user.firstname', 'user.email'])
+      .innerJoin('user.userType', 'userType')
+      .addSelect('userType.code', 'userType.lib')
+      .where('user.id = :id', { id })
+      .getOne();
+  }
 }
