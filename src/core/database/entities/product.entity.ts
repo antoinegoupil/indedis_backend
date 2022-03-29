@@ -9,7 +9,7 @@ export class Product {
   @PrimaryGeneratedColumn({ type: 'int' })
   id: number;
 
-  @Column({ type: 'varchar', nullable: false, length: 50 })
+  @Column({ type: 'varchar', nullable: false, length: 100 })
   name: string;
 
   @Column({ type: 'varchar', nullable: true, length: 150 })
@@ -17,6 +17,9 @@ export class Product {
 
   @Column({ type: 'real', nullable: false })
   price: number;
+
+  @Column({ type: 'varchar', nullable: true, length: 150 })
+  imageName: string;
 
   @ManyToOne(() => Mark, (mark) => mark.products)
   mark: Mark;

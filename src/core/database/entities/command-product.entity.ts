@@ -4,7 +4,7 @@ import { Product } from './product.entity';
 
 @Entity()
 export class CommandProduct {
-  @ManyToOne(() => Product, (product) => product.commandsProduct, { primary: true })
+  @ManyToOne(() => Product, (product) => product.commandsProduct, { primary: true, onDelete: 'CASCADE' })
   product: Product;
 
   @ManyToOne(() => Command, (command) => command.commandProducts, { primary: true })

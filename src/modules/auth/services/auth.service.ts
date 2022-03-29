@@ -45,7 +45,7 @@ export class AuthService {
   async login(params: LoginDto) {
     const user = await this.authRepo.login(params.email);
 
-    if (user && this.validatePasswordUser(params.password, user.password)) {
+    if (user && (await this.validatePasswordUser(params.password, user.password))) {
       return this.generateToken(user.id, user.userType.code);
     }
 
@@ -70,8 +70,8 @@ export class AuthService {
    * @param passwordUser
    * @returns
    */
-  validatePasswordUser(passwordlogin: string, passwordUser: string): boolean {
-    if (bcrypt.compare(passwordlogin, passwordUser)) {
+  async validatePasswordUser(passwordlogin: string, passwordUser: string): Promise<boolean> {
+    if (await bcrypt.compare(passwordlogin, passwordUser)) {
       return true;
     }
     return false;

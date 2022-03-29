@@ -11,7 +11,9 @@ export class ProductRepository extends Repository<Product> {
    * @returns
    */
   async findByFilter(productFilter: ProductFilterDto): Promise<Product[]> {
-    const req = this.createQueryBuilder('product').select(['product.id', 'product.name', 'product.price']).where('1');
+    const req = this.createQueryBuilder('product')
+      .select(['product.id', 'product.name', 'product.description', 'product.price', 'product.imageName'])
+      .where('1');
 
     if (productFilter.name) {
       req.andWhere('product.name LIKE :name', { name: `%${productFilter.name.trim()}%` });
@@ -32,7 +34,7 @@ export class ProductRepository extends Repository<Product> {
    */
   async findById(id: number) {
     return await this.createQueryBuilder('product')
-      .select(['product.id', 'product.name', 'product.description', 'product.price'])
+      .select(['product.id', 'product.name', 'product.description', 'product.price', 'product.imageName'])
       .where('product.id = :id', { id })
       .getOne();
   }
