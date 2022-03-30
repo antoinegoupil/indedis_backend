@@ -26,11 +26,18 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## Prérequis
+
+Un serveur mysql ou mariadb
+Créer une bdd nommé `indedis`
+
 ## Installation
 
 ```bash
 $ npm install
 ```
+
+changer les informations du fichier .env selon votre configuration (surtout le \_DB_USER et le \_DB_PASSWORD)
 
 ## Running the app
 
