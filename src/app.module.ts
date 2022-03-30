@@ -7,9 +7,10 @@ import { UserModule } from './modules/user/user.module';
 import { ProductModule } from './modules/product/product.module';
 import { CommandModule } from './modules/command/command.module';
 import { InitModule } from './modules/init/init.module';
+import { HomeModule } from './modules/home/home.module';
 
 @Module({
-  imports: [CoreModule, AuthModule, UserModule, ProductModule, CommandModule, InitModule],
+  imports: [CoreModule, AuthModule, UserModule, ProductModule, CommandModule, InitModule, HomeModule],
   controllers: [AppController],
   providers: [AppService],
 })

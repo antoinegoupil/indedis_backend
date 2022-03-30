@@ -38,4 +38,11 @@ export class ProductRepository extends Repository<Product> {
       .where('product.id = :id', { id })
       .getOne();
   }
+
+  async findForHome(): Promise<Product[]> {
+    return await this.createQueryBuilder('product')
+      .select(['product.id', 'product.name', 'product.description', 'product.price', 'product.imageName'])
+      .where('product.isHome = true')
+      .getMany();
+  }
 }

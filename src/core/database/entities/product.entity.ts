@@ -21,6 +21,9 @@ export class Product {
   @Column({ type: 'varchar', nullable: true, length: 150 })
   imageName: string;
 
+  @Column({ type: 'boolean', nullable: false, default: false })
+  isHome: boolean;
+
   @ManyToOne(() => Mark, (mark) => mark.products)
   mark: Mark;
 
