@@ -28,8 +28,8 @@
 
 ## Prérequis
 
-Un serveur mysql ou mariadb
-Créer une bdd nommé `indedis`
+* Un serveur mysql ou mariadb -> il faut également créer une bdd nommé `indedis` (pas besoin de créer de tables)
+* Nodejs 16
 
 ## Installation
 
